@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import twitterGif from "../assets/icons8-twitter-gif.gif";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../state/UserProvider";
-import slugify from "slugify";
-import shortid from "shortid";
+
 import toast, { Toaster } from "react-hot-toast";
 import { TwitterOutlined } from "@ant-design/icons";
 import axios from "axios";

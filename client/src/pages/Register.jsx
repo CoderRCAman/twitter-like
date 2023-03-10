@@ -1,8 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import twitterGif from "../assets/icons8-twitter-gif.gif";
 import { Link, useNavigate } from "react-router-dom";
-import slugify from "slugify";
-import shortid from "shortid";
 import { TwitterOutlined } from "@ant-design/icons";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
