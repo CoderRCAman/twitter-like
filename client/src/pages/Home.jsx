@@ -30,36 +30,10 @@ export default function Home() {
   const user_ctx = useContext(UserContext);
   const contentRef = useRef();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const formData = new FormData();
-      formData.append("content", uploadPost.content);
-      formData.append("picture", uploadPost.picture);
-      const tweetRes = await axios.post(
-        "http://localhost:5000/tweet",
-        formData,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      if (tweetRes.status === 200) {
-        user_ctx.setRefresh((ref) => ref + 1);
-      }
-    } catch (error) {
-      console.log;
-    }
-    error;
-    toast.error("Failed to POST!");
-  };
-
+  
   const FormComponent = () => {
     return (
-      <form onSubmit={handleSubmit}>
+      <form >
         <div className="flex  space-x-3  ">
           <img
             src={user_ctx.user?.avatar.download_url}
