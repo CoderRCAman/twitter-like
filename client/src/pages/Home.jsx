@@ -70,7 +70,7 @@ export default function Home() {
           <div
             className={`w-full border-b-${
               showFull ? "[1px]" : "none"
-            } border-b-gray-300 pb-5`}
+            } border-b-gray-400 pb-5`}
           >
             <TextareaAutosize
               onClick={() => setShowFull(true)}
@@ -139,7 +139,7 @@ export default function Home() {
       <Navbar />
       <div
         ref={contentRef}
-        className="md:border-x-[1px] md:border-x-gray-300  max-h-screen overflow-scroll  w-full  "
+        className="md:border-x-[1px] md:border-x-gray-400  max-h-screen overflow-scroll  w-full  "
       >
         <h1
           onClick={() => (contentRef.current.scrollTop = 0)}
@@ -148,7 +148,7 @@ export default function Home() {
           Home
         </h1>
 
-        <div className=" -mt-4 mb-2 space-y-4 p-5 pb-3 border-b-[1px] border-b-gray-300  ">
+        <div className=" -mt-4 mb-2 space-y-4 p-5 pb-3 border-b-[1px] border-b-gray-400  ">
           <div className="mt-10">{FormComponent()}</div>
         </div>
         <div>
