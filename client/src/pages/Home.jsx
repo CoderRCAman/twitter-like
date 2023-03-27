@@ -30,15 +30,44 @@ export default function Home() {
   const user_ctx = useContext(UserContext);
   const contentRef = useRef();
 
-  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData();
+      formData.append("content", uploadPost.content);
+      formData.append("picture", uploadPost.picture);
+      const tweetRes = await axios.post(
+        "http://localhost:5000/tweet",
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (tweetRes.status === 200) {
+        user_ctx.setRefresh((ref) => ref + 1);
+      }
+    } catch (error) {
+      console.log;
+    }
+    error;
+    toast.error("Failed to POST!");
+  };
+
   const FormComponent = () => {
     return (
-      <form >
+      <form onSubmit={handleSubmit}>
         <div className="flex  space-x-3  ">
           <img
-            src={user_ctx.user?.avatar.download_url}
+            src={
+              user_ctx.user?.avatar.download_url ||
+              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            }
             alt=""
-            className="h-12 w-12 border-2 border-gray-400 rounded-full "
+            className="h-12 w-12   rounded-full "
           />
 
           <div
@@ -51,7 +80,7 @@ export default function Home() {
               onChange={(e) =>
                 setUploadPost({ ...uploadPost, content: e.target.value })
               }
-              className=" text-gray-600 resize-none font-[Roboto] text-xl md:w-[70%] outline-none mt-2"
+              className=" text-gray-600 bg-[#081b31] resize-none  text-xl md:w-[70%] outline-none mt-2"
               placeholder="What's happening?"
             />
             {uploadPost.picture && (
@@ -107,17 +136,17 @@ export default function Home() {
   };
 
   return (
-    <div className=" min-h-screen flex w-full">
+    <div className=" bg-[#081b31] min-h-screen font-sans flex w-full">
       <Toaster />
 
       <Navbar />
       <div
         ref={contentRef}
-        className="md:border-x-[1px] md:border-x-gray-400  max-h-screen overflow-scroll  w-full  "
+        className=" md:border-x-[1px] md:border-x-gray-400  max-h-screen overflow-scroll  w-full  "
       >
         <h1
           onClick={() => (contentRef.current.scrollTop = 0)}
-          className="text-slate-800 font-bold text-xl py-3 px-4 w-[47.5%] cursor-pointer -mt-2 fixed backdrop-blur-lg "
+          className="text-slate-400 font-bold text-xl py-3 px-4 w-[47.5%] cursor-pointer -mt-2 fixed backdrop-blur-lg "
         >
           Home
         </h1>
@@ -125,7 +154,7 @@ export default function Home() {
         <div className=" -mt-4 mb-2 space-y-4 p-5 pb-3 border-b-[1px] border-b-gray-400  ">
           <div className="mt-10">{FormComponent()}</div>
         </div>
-        <div>
+        <div className="">
           {user_ctx?.user?.feeds.length === 0 ? (
             <div className="px-5 flex items-start py-3 space-x-3 border-t-[1px] border-t-gray-800">
               <img
@@ -133,7 +162,7 @@ export default function Home() {
                 alt=""
                 className="h-12 w-12 rounded-full"
               />
-              <div className="text-white font-[Roboto]">
+              <div className="text-white ">
                 <h1 className="font-bold text-lg"> {user_ctx.user?.name}</h1>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
@@ -195,7 +224,7 @@ export default function Home() {
                       alt=""
                       className="h-12 w-12 rounded-full"
                     />
-                    <div className="text-white font-[Roboto]">
+                    <div className="text-white ">
                       <h1 className="font-bold text-lg">
                         {" "}
                         {tweet?.user_id?.name}

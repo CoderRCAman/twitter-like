@@ -32,12 +32,12 @@ export default function TweetModal() {
         }
       );
       if (tweetRes.status === 200) {
-        toast.success('Tweeted!') 
-        user_ctx.setRefresh((ref) => ref + 1); 
-        return ; 
+        toast.success("Tweeted!");
+        user_ctx.setRefresh((ref) => ref + 1);
+        return;
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
     toast.error("Failed to POST!");
   };
@@ -65,7 +65,10 @@ export default function TweetModal() {
         <form onSubmit={handleSubmit}>
           <div className="flex  space-x-3  ">
             <img
-              src={user_ctx?.user?.avatar.download_url}
+              src={
+                user_ctx?.user?.avatar.download_url ||
+                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+              }
               alt=""
               className="h-12 w-12 rounded-full "
             />

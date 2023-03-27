@@ -4,8 +4,10 @@ import { TwitterOutlined } from "@ant-design/icons";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import axios from "axios";
+import { UserContext } from "../state/UserProvider";
 export default function Register() {
   const navigate = useNavigate();
+  const user_ctx = useContext(UserContext);
   const [user, setUser] = useState({
     user_name: "",
     email: "",
@@ -17,9 +19,32 @@ export default function Register() {
 
     setUser({ ...user, [name]: value });
   };
- 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!user.email) {
+      toast.error("Please enter email!");
+    }
+    if (!user.user_name) {
+      toast.error("Please enter user name!");
+    }
+    if (!user.password) {
+      toast.error("Please enter password!");
+    }
+    try {
+        const postResponse = await  axios.post('http://localhost:5000/register',user) ;
+        if(postResponse.status === 201) {
+            alert("Registered ok!")
+            
+        } 
+        navigate('/login')
+    } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.msg)
+    } 
+
+  };
   return (
-    <form  className="min-h-screen  grid md:grid-cols-2">
+    <form onSubmit={handleSubmit} className="min-h-screen  grid md:grid-cols-2">
       <Toaster />
       <div className="hidden md:block relative">
         <TwitterOutlined className="text-white absolute text-[300px] top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] " />

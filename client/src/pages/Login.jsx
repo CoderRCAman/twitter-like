@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { UserContext } from "../state/UserProvider";
 import toast, { Toaster } from "react-hot-toast";
 import { TwitterOutlined } from "@ant-design/icons";
 import axios from "axios";
 export default function Login() {
   const navigate = useNavigate();
-
+  const user_ctx = useContext(UserContext);
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -15,9 +15,37 @@ export default function Login() {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!user.email) {
+      toast.error("Please enter email!");
+    }
+    if (!user.password) {
+      toast.error("Please enter password!");
+    }
+    try {
+      const postResponse = await axios.post(
+        "http://localhost:5000/login",
+        user,
+        {
+          withCredentials:true
+        }
+      );
+      if (postResponse.status === 200) {
+        toast.success(postResponse.data.msg);
+        localStorage.setItem('firstLogin',true) ; 
+        localStorage.setItem('user_id',postResponse.data.user_id) ;  
+        window.location.href = '/'
+      }
+      
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.msg);
+    }
+  };
   
   return (
-    <form  className="min-h-screen  grid md:grid-cols-2">
+    <form onSubmit={handleSubmit} className="min-h-screen  grid md:grid-cols-2">
       <Toaster />
       <div className="hidden md:block relative">
         <TwitterOutlined className="text-white absolute text-[300px] top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] " />

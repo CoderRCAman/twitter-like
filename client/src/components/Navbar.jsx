@@ -31,7 +31,7 @@ export default function Navbar() {
   };
   useEffect(() => {
     if (location) {
-      if (location.pathname === "/home") changeClickedState("home");
+      if (location.pathname === "/") changeClickedState("home");
       if (location.pathname === "/profile") changeClickedState("profile");
       if (location.pathname === "/notification")
         changeClickedState("notification");
@@ -57,19 +57,19 @@ export default function Navbar() {
       <nav className="max-h-screen  ">
         <div className="hidden  md:block ml-12 w-[250px] max-h-screen overflow-hidden">
           <div className="space-y-7 flex flex-col items-start">
-            <Link to="/home">
+            <Link to="/">
               <span className="cursor-pointer hover:bg-slate-900 rounded-full text-center h-12 w-12 ml-2 p-2  ">
                 <TwitterOutlined className="text-blue-400 text-3xl " />
               </span>
             </Link>
-            <Link to="/home">
+            <Link to="/">
               <div
                 className="flex items-center justify-center cursor-pointer hover:bg-slate-900  px-4  pb-2 mr-3 rounded-full"
                 onClick={() => changeClickedState("home")}
               >
-                <HomeOutlined className="text-gray-500 text-3xl" />
+                <HomeOutlined className="text-gray-400 text-3xl" />
                 <h1
-                  className={`text-gray-500 ml-5 font-${
+                  className={`text-gray-400 ml-5 font-${
                     user_ctx.navClicks.home ? "bold" : "normal"
                   } mt-2  text-xl`}
                 >
@@ -86,10 +86,10 @@ export default function Navbar() {
                   {shownf && (
                     <div className="h-3 w-3 left-6 top-1 rounded-full bg-cyan-500 absolute"></div>
                   )}
-                  <BellOutlined className="text-gray-500 text-3xl" />
+                  <BellOutlined className="text-gray-400 text-3xl" />
                 </div>
                 <h1
-                  className={`text-gray-500 ml-5 font-${
+                  className={`text-gray-400 ml-5 font-${
                     user_ctx.navClicks.notification ? "bold" : "normal"
                   } mt-2 text-xl`}
                 >
@@ -103,9 +103,9 @@ export default function Navbar() {
                 className="flex items-center cursor-pointer hover:bg-slate-900  px-4  pb-2 mr-3 rounded-full"
                 onClick={() => changeClickedState("profile")}
               >
-                <UserOutlined className="text-gray-500 text-3xl" />
+                <UserOutlined className="text-gray-400 text-3xl" />
                 <h1
-                  className={`text-gray-500 ml-5 font-${
+                  className={`text-gray-400 ml-5 font-${
                     user_ctx.navClicks.profile ? "bold" : "normal"
                   } mt-2 text-xl`}
                 >
@@ -120,9 +120,9 @@ export default function Navbar() {
                 changeClickedState("logout");
               }}
             >
-              <LogoutOutlined className="text-gray-500 text-3xl" />
+              <LogoutOutlined className="text-gray-400 text-3xl" />
               <h1
-                className={`text-gray-500 ml-5 font-${
+                className={`text-gray-400 ml-5 font-${
                   user_ctx.navClicks.logout ? "bold" : "normal"
                 } mt-2 text-xl`}
                 onClick={() => {
