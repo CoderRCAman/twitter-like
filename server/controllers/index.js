@@ -223,10 +223,30 @@ async function getUserById(req, res) {
   }
 }
 
+async function getPostById(req, res) {
+  const { id } = req.params;
+  console.log(id);
+  try {
+    const post = await Tweet.findById(id)
+      .populate({
+        path: "comments",
+        populate: "user_id",
+      })
+      .populate("user_id");
+    return res.status(200).json(post);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      msg: "Internal Server Error",
+    });
+  }
+}
+
 module.exports = {
   register,
   login,
   getUserById,
   tweet,
   updateProfile,
+  getPostById
 };

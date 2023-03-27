@@ -18,7 +18,8 @@ router.post("/login", login);
 router.get("/user/:id", getUserById);
 router.post("/tweet", tweet);
 router.patch("/user", updateProfile);
+router.get('/post/:id',getPostById)
 
-// router.post('/unfollow/:id',)
+
 
 module.exports = router;
